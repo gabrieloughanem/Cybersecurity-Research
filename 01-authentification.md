@@ -10,11 +10,11 @@ Les mécanismes utilisés pour y répondre diffèrent cependant fortement en mat
 
 | Méthode | Sécurité | Friction utilisateur | Résistance au phishing | Dépendances externes | Complexité |
 |---|---|---|---|---|---|
-| Mot de passe | Moyenne | Faible | Faible | Faible | Faible |
-| OTP / 2FA | Bonne | Moyenne | Faible à moyenne | Faible | Moyenne |
-| Magic link | Bonne | Faible | Faible à moyenne | Email | Faible |
+| Mot de passe | Variable | Faible | Faible | Faible | Faible |
+| OTP / 2FA | Variable | Moyenne | Faible à moyenne | Faible | Moyenne |
+| Magic link | Variable | Faible | Faible à moyenne | Email | Faible |
 | OAuth / SSO | Variable | Faible | Variable | Élevée | Moyenne |
-| Passkey / WebAuthn | Très élevée | Faible | Élevée | Faible | Élevée |
+| Passkey / WebAuthn | Élevée | Faible | Élevée | Faible | Élevée |
 
 Ces appréciations sont indicatives : la sécurité réelle dépend notamment de l'implémentation, de la configuration et du contexte d'utilisation.
 
@@ -24,7 +24,7 @@ Les mots de passe restent l'un des mécanismes d'authentification les plus répa
 
 Points étudiés :
 
-- stockage via des fonctions de dérivation de clé (Argon2, bcrypt), plutôt qu'un hash simple ;
+- stockage avec une fonction de hachage de mot de passe adaptée, telle qu'Argon2id ou bcrypt, plutôt qu'un hash cryptographique généraliste ;
 - politiques de longueur et de complexité ;
 - gestionnaires de mots de passe ;
 - attaques par force brute ;
@@ -60,12 +60,13 @@ Points étudiés :
 
 ## OAuth / SSO
 
-OAuth et les systèmes de SSO permettent notamment de déléguer certaines fonctions d'authentification ou d'autorisation à un fournisseur d'identité.
+OAuth 2.0 est un framework d'autorisation permettant à une application d'obtenir un accès délégué à des ressources. OpenID Connect ajoute une couche d'authentification et d'identité au-dessus d'OAuth 2.0. Les systèmes de SSO peuvent s'appuyer sur OpenID Connect ou sur d'autres protocoles de fédération.
 
 Points étudiés :
 
 - Authorization Code Flow ;
-- PKCE ;
+- PKCE, mécanisme de protection du Authorization Code Flow, désormais recommandé pour les clients publics et largement recommandé pour les autres clients ;
+- OAuth 2.0 (RFC 6749) et le projet OAuth 2.1, qui consolide plusieurs bonnes pratiques et mises à jour ultérieures d'OAuth 2.0 (Internet-Draft) ;
 - rôles du client, du serveur d'autorisation et du resource server ;
 - gestion des tokens ;
 - redirections ;
@@ -74,7 +75,7 @@ Points étudiés :
 
 ## Passkeys / WebAuthn
 
-Les passkeys reposent notamment sur la cryptographie à clé publique et permettent de réduire fortement l'exposition aux attaques par phishing.
+Les passkeys reposent notamment sur la cryptographie à clé publique et offrent une résistance structurelle au phishing.
 
 Points étudiés :
 
@@ -83,13 +84,13 @@ Points étudiés :
 - challenge cryptographique ;
 - vérification de l'origine ;
 - résistance structurelle au phishing ;
-- WebAuthn et FIDO2 ;
+- WebAuthn (API W3C) et FIDO2 (ensemble plus large de spécifications de l'écosystème FIDO incluant WebAuthn et CTAP) — deux notions liées mais distinctes ;
 - formats CBOR et COSE ;
 - synchronisation des passkeys selon les écosystèmes.
 
 ## Vérification d'identité
 
-La vérification d'identité répond à une problématique différente de l'authentification classique : établir ou vérifier l'identité réelle d'une personne.
+La vérification d'identité répond à une problématique différente de l'authentification : établir ou vérifier qu'une personne correspond à une identité déclarée ou revendiquée.
 
 Points étudiés :
 
@@ -109,4 +110,14 @@ La sécurité d'un système dépend également de la récupération de compte, d
 
 ## Sources
 
-Les références sont ajoutées au fil des recherches : RFC, spécifications W3C, standards FIDO, documentations techniques et publications spécialisées.
+- IETF/IRTF — [RFC 9106](https://www.rfc-editor.org/rfc/rfc9106.html) — Argon2 Memory-Hard Function for Password Hashing (document Informational du CFRG, pas Standards Track)
+- IETF — [RFC 4226](https://www.rfc-editor.org/rfc/rfc4226.html) — HOTP: An HMAC-Based One-Time Password Algorithm
+- IETF — [RFC 6238](https://www.rfc-editor.org/rfc/rfc6238.html) — TOTP: Time-Based One-Time Password Algorithm
+- IETF — [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749.html) — The OAuth 2.0 Authorization Framework
+- IETF — [RFC 7636](https://www.rfc-editor.org/rfc/rfc7636.html) — Proof Key for Code Exchange (PKCE)
+- OpenID Foundation — [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
+- W3C — [Web Authentication (WebAuthn) Level 3](https://www.w3.org/TR/webauthn-3/) — Recommendation, succède à WebAuthn Level 2 (2021)
+- FIDO Alliance — [Passkeys](https://fidoalliance.org/passkeys/) — documentation officielle sur les passkeys et leur relation à FIDO2
+- OWASP — [Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
+- OWASP — [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- NIST — [SP 800-63B-4](https://csrc.nist.gov/pubs/sp/800/63/b/4/final) — Digital Identity Guidelines: Authentication and Authenticator Management (supersède SP 800-63B)
