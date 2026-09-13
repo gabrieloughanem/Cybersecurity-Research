@@ -13,7 +13,7 @@ L'objectif est de comprendre les mécanismes de sécurité, leurs compromis et l
 - **Authentification** — mots de passe, passkeys/WebAuthn, OTP/2FA, magic links, OAuth/SSO, certificats et mTLS
 - **Sessions et contrôle d'accès** — cookies, CSRF, RBAC/ABAC, gestion des sessions
 - **Sécurité web** — headers, CORS, CSP, rate limiting et mécanismes de protection
-- **Contrôle réseau** — allowlisting IP, filtrage réseau, VPN et restrictions d'accès
+- **Sécurité réseau** — allowlisting IP, filtrage réseau, VPN et restrictions d'accès
 - **Infrastructure** — SSH, reverse proxy, firewall, DNS, CDN
 - **Cryptographie** — chiffrement, hachage, signatures, gestion des clés et cryptographie post-quantique
 
