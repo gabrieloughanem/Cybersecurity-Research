@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-L'authentification répond à une question simple : « êtes-vous bien qui vous prétendez être ? » Mais le contexte change radicalement la réponse : un utilisateur qui se connecte à sa banque, un téléphone qui se déverrouille au visage, et un serveur qui accepte une connexion SSH ne posent pas le même problème, ni les mêmes contraintes de menace.
+L'authentification répond à une question simple : « êtes-vous bien qui vous prétendez être ? » Mais le contexte change radicalement la réponse : un utilisateur qui se connecte à sa banque, un téléphone qui se déverrouille au visage, et un serveur qui accepte une connexion ne posent pas le même problème, ni les mêmes contraintes de menace.
 
 Ce document couvre deux terrains volontairement mis côte à côte : les services grand public et l'infrastructure serveur. Pour chaque méthode, l'objectif va jusqu'au concret — commandes, API, formats de fichiers, librairies — et pas seulement le principe théorique.
 
