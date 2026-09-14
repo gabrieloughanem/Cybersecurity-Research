@@ -4,7 +4,7 @@
 
 L'authentification répond à une question simple : « êtes-vous bien qui vous prétendez être ? » Mais le contexte change radicalement la réponse : un utilisateur qui se connecte à sa banque, un téléphone qui se déverrouille au visage, et un serveur qui accepte une connexion ne posent pas le même problème, ni les mêmes contraintes de menace.
 
-Ce document couvre deux terrains volontairement mis côte à côte : les services grand public et l'infrastructure serveur. Pour chaque méthode, l'objectif va jusqu'au concret — commandes, API, formats de fichiers, librairies — et pas seulement le principe théorique.
+Ce document couvre deux terrains volontairement mis côte à côte : les services grand public et l'infrastructure serveur.
 
 ## Authentification, autorisation, contrôle d'accès, session : quatre notions distinctes
 
@@ -13,11 +13,11 @@ Une confusion fréquente consiste à ranger dans « authentification » des méc
 | Notion | Question posée | Exemples |
 |---|---|---|
 | **Authentification** | Qui êtes-vous ? | Clé SSH, certificat SSH, Kerberos, mTLS, mot de passe, WebAuthn |
-| **Autorisation** | Qu'avez-vous le droit de faire ? | `sudo`, permissions IAM, rôles applicatifs |
+| **Autorisation** | Qu'avez-vous le droit de faire ? | `sudo`, permissions, rôles applicatifs |
 | **Contrôle d'accès réseau** | Depuis où pouvez-vous atteindre le service ? | Pare-feu, liste blanche d'IP, VPN |
 | **Gestion de session** | Combien de temps votre authentification reste-t-elle valable ? | Cookie de session, durée de vie d'un token, `signCount` |
 
-Une clé SSH prouve une identité (authentification) ; `sudo` décide ensuite ce que cette identité peut exécuter (autorisation) ; un pare-feu décide si la connexion peut même atteindre le serveur (contrôle réseau) ; un cookie de session maintient l'état authentifié entre deux requêtes (session). Un certificat SSH combine les deux premières notions : il porte une identité **et** une durée de validité. Ce découpage sert de fil conducteur à la Partie 2.
+Une clé SSH prouve une identité (authentification) ; `sudo` décide ensuite ce que cette identité peut exécuter (autorisation) ; un pare-feu décide si la connexion peut même atteindre le serveur (contrôle réseau) ; un cookie de session maintient l'état authentifié entre deux requêtes (session). Un certificat SSH combine les deux premières notions : il porte une identité **et** une durée de validité.
 
 ## Comparatif — services grand public
 
