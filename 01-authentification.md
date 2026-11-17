@@ -45,6 +45,7 @@ Ces quatre notions sont complémentaires : aucune ne remplace les autres. Un sys
 | Code à usage unique (SMS, application) | Moyen | Moyenne | Faible à moyenne |
 | Lien de connexion par email | Moyen | Simple | Faible à moyenne |
 | Connexion via Google, Apple, etc. | Variable | Très simple | Variable |
+| Connexion par téléphone (numéro, notification, QR code) | Moyen | Très simple | Faible à moyenne |
 | Passkey (clé d'accès) | Élevé | Très simple | Élevée |
 | Validation bancaire forte | Élevé | Moyenne | Dépend de la mise en œuvre |
 | Identité numérique de l'État (FranceConnect) | Élevé | Moyenne | Dépend de la mise en œuvre |
@@ -110,6 +111,29 @@ Ces quatre notions sont complémentaires : aucune ne remplace les autres. Un sys
 - un mécanisme complémentaire (appelé **PKCE**) garantit que seul l'émetteur de la demande peut finaliser la connexion, même si la réponse est interceptée.
 
 **Sa limite.** Le service dépend d'un acteur extérieur : si le compte Google de l'utilisateur est compromis ou suspendu, l'accès au service l'est aussi.
+
+---
+
+## La connexion par téléphone
+
+**Le principe.** Comme pour la connexion via Google, l'utilisateur s'appuie sur quelque chose qu'il possède déjà pour se connecter. Ici, ce n'est plus un compte, c'est **son téléphone**. Cette approche se décline en trois variantes.
+
+**1. Le numéro de téléphone comme identifiant.** C'est le modèle de WhatsApp, Uber ou Lydia : l'utilisateur saisit son numéro et reçoit un code par SMS. Il n'a pas de mot de passe à retenir, et le numéro devient son identifiant.
+
+- *Avantage :* l'inscription est immédiate et aucun mot de passe ne peut être oublié ou volé.
+- *Limites :* la sécurité du compte repose entièrement sur l'opérateur téléphonique. Un attaquant peut faire transférer le numéro sur sa propre carte SIM (le « SIM swapping » évoqué plus haut). Par ailleurs, les opérateurs réattribuent les numéros résiliés : le nouveau titulaire d'un ancien numéro peut alors accéder aux comptes qui y sont encore rattachés.
+
+**2. La validation par notification.** C'est le message « Est-ce bien vous qui essayez de vous connecter ? » envoyé sur le téléphone par Google, Microsoft ou certaines banques. L'utilisateur approuve d'un geste.
+
+- *Avantage :* c'est plus sûr que le SMS, car la demande est liée à l'application installée sur l'appareil et non au numéro de téléphone.
+- *Limite :* certains attaquants qui connaissent déjà le mot de passe envoient des dizaines de demandes à la suite, jusqu'à ce que l'utilisateur, lassé ou distrait, finisse par accepter. On parle de **« fatigue d'authentification »**. La parade consiste à afficher un nombre sur l'écran de connexion, que l'utilisateur doit recopier sur son téléphone : il ne peut ainsi valider que la connexion qu'il a lui-même lancée.
+
+**3. Le QR code.** C'est le modèle de WhatsApp Web ou de certaines télévisions connectées : l'écran affiche un QR code, que l'utilisateur scanne avec son téléphone déjà connecté.
+
+- *Avantage :* aucune saisie, et la connexion est confirmée par un appareil de confiance.
+- *Limite :* un faux site peut afficher le QR code d'une vraie session. En le scannant, l'utilisateur ouvre alors la session de l'attaquant sans s'en rendre compte. Le service doit donc indiquer clairement sur le téléphone ce qui est en train d'être autorisé : l'appareil, le lieu et le service concernés.
+
+**En résumé.** Le téléphone joue ici le même rôle qu'un compte Google : un **intermédiaire de confiance** qui atteste de l'identité. Le niveau de sécurité dépend de la variante choisie : le SMS est la plus fragile, la notification avec un nombre à recopier est la plus robuste. Pour aller plus loin, la passkey (section suivante) utilise elle aussi le téléphone, mais de façon cryptographique : elle supprime ces faiblesses.
 
 ---
 
